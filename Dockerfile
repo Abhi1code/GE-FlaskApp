@@ -7,7 +7,7 @@ WORKDIR /app
 
 COPY . /app
 
-RUN pip3 install -r requirements1.txt
+RUN pip3 install --upgrade pip --ignore-installed -r requirements1.txt
 
 EXPOSE 5000
 

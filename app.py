@@ -7,7 +7,8 @@ logger.basicConfig(level="DEBUG")
 # from warfit_learn.metrics import score_pw20
 # from sklearn.model_selection import train_test_split
 # from sklearn.metrics import mean_absolute_error, mean_squared_error
-from sklearn.externals import joblib
+# from sklearn.externals import joblib
+import pickle
 
 # import numpy as np
 
@@ -20,6 +21,7 @@ app = Flask(__name__)
 
 @app.route("/", methods=["POST"])
 def hello():
+
     # raw_iwpc = datasets.load_iwpc()
     # data = preprocessing.prepare_iwpc(raw_iwpc)
     # train_set, test_set = train_test_split(data, test_size=0.2)
@@ -31,6 +33,10 @@ def hello():
     # X_train = train_set.drop(['Therapeutic Dose of Warfarin'], axis=1)
     #
     # svr_model.fit(X_train, Y_train)
+    #
+    # pickle_out = open("file1.pickle", "wb")
+    # pickle.dump(svr_model, pickle_out)
+    # pickle_out.close()
     # joblib.dump(svr_model, 'file.pkl')
     #
     # Y_test = np.array(test_set['Therapeutic Dose of Warfarin'])
@@ -124,7 +130,10 @@ def hello():
                 0]]
 
     print("\nInput features as passed to predict function: \n", X_predi)
-    svr_model_jolib = joblib.load('file.pkl')
+    # svr_model_jolib = joblib.load('file.pkl')
+
+    pickle_in = open("file1.pickle", "rb")
+    svr_model_jolib = pickle.load(pickle_in)
     Y_pred = svr_model_jolib.predict(X_predi)
 
     print("\nPredicted dosage: ", Y_pred[0], "mg/week")
